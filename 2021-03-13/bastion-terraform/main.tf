@@ -108,7 +108,17 @@ resource "tls_private_key" "terraform_demo_ssh_key" {
   rsa_bits = 4096
 }
 
+resource "local_file" "terraform_demo_ssh_private_key" {
+  sensitive_content = tls_private_key.terraform_demo_ssh_key.private_key_pem
+  filename          = "id_rsa"
+  file_permission   = "0600"
+}
 
+resource "local_file" "terraform_demo_ssh_key" {
+  content  = tls_private_key.terraform_demo_ssh_key.public_key_openssh
+  filename = "id_rsa.pub"
+  file_permission = "0600"
+}
 resource "azurerm_linux_virtual_machine" "terraform_demo_vm" {
     name                  = "sysadmin-demo-bastion"
     location              = "eastus"
