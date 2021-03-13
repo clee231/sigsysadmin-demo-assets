@@ -9,5 +9,5 @@ output "bastion_ip" {
 
 output "bastion_fqdn" {
   value = azurerm_dns_a_record.terraform_demo_dns_record.fqdn
-
 }
+
