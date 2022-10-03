@@ -1,0 +1,9 @@
+---
+- hosts: sysadmin
+  become: yes
+
+  tasks:
+    - name: install the latest version of CMake
+      apt:
+        name: cmake
+        state: latest
