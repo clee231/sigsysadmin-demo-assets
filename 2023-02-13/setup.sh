@@ -8,8 +8,14 @@ do
           chmod 700 /home/sysadmin$i/.ssh
           chmod 600 /home/sysadmin$i/.ssh/authorized_keys
           chown -R sysadmin$i:sysadmin$i /home/sysadmin$i/.ssh
-    done
+done
 
-    apt-get update
-    apt install ansible
-    apt install python3
+apt-get update
+apt install ansible
+apt install python3
+
+ufw disable
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -A INPUT -p tcp --dport ssh -j ACCEPT
+iptables --policy INPUT DROP
+iptables-save > /etc/iptables.rules
