@@ -19,3 +19,18 @@ iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 iptables -A INPUT -p tcp --dport ssh -j ACCEPT
 iptables --policy INPUT DROP
 iptables-save > /etc/iptables.rules
+
+ systemctl disable systemd-resolved
+ systemctl stop systemd-resolved
+
+curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
+echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
+sudo apt update && sudo apt install confettysh
+# confettysh --port 4336 --metrics-port 9224
+# confettysh --port 2222
+# confettysh --port 1336 --metrics-port 9223
+# ./clidle -serve 0.0.0.0:4321
+# ./clidle -serve 0.0.0.0:1234
+# ./clidle -serve 0.0.0.0:4321
+# ./clidle -serve 0.0.0.0:8889
+# ./clidle -serve 0.0.0.0:8888
